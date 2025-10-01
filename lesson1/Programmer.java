@@ -48,7 +48,7 @@ class Programmer {
             System.out.println(name + " работает над задачей.");
             ++tiredness;
         } else {
-            System.out.println(name + " не имеет активных задач, и пошел ее получать");
+            System.out.println(name + " не имеет активных задач, и пошел ее получать.");
             getTask();
         }
     }
