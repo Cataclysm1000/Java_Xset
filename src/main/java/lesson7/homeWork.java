@@ -1,8 +1,10 @@
 package lesson7;
 
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.util.*;
-
+@RestController
 public class homeWork {
     public static void main(String[] args) {
         String jsonDate = "{\"startDate\": \"2024-05-01\", \"endDate\": \"2024-05-10\"}";
@@ -27,8 +29,8 @@ public class homeWork {
     // 1. Принять JSON с полями "startDate" и "endDate" (формат YYYY-MM-DD)
     // 2. Сгенерировать случайную дату в этом диапазоне
     // 3. Вернуть JSON с ключом "randomDate"
-
-    public static String randomDate (String jsonDate){
+    @PostMapping("/randomDate") //http://localhost:8080/randomDate
+    public static String randomDate (@RequestBody String jsonDate){
         String startDate = jsonDate.substring(jsonDate.indexOf("startDate") + 13, jsonDate.indexOf("\",", jsonDate.indexOf("startDate")));
         String endDate = jsonDate.substring(jsonDate.indexOf("endDate") + 11, jsonDate.indexOf("\"", jsonDate.indexOf("endDate") + 11));
 
@@ -51,8 +53,8 @@ public class homeWork {
     // 1. Принять JSON с массивом "numbers" в Body и булевым флагом "isAsc" в параметре
     // 2. Отсортировать массив по возрастанию/убыванию в зависимости от isAsc
     // 3. Вернуть JSON с ключом "sortedNumbers"
-
-    public static String sortedNumbers (String numbers, boolean isAsc){
+    @PostMapping("/numbers") //http://localhost:8080/numbers?isAsc=true   //http://localhost:8080/numbers?isAsc=false
+    public static String sortedNumbers (@RequestBody String numbers, @RequestParam boolean isAsc){
 
         //json в массив:
         String str = numbers.substring(numbers.indexOf("[") + 1, numbers.indexOf("]"));
@@ -88,8 +90,8 @@ public class homeWork {
     // 1. Принять JSON с ключом "text"
     // 2. Подсчитать количество вхождений каждого символа (игнорировать пробелы)
     // 3. Вернуть JSON с отсортированным списком символов и их частот
-
-    public static String charJson (String jsonText) {
+    @PostMapping("/text") //http://localhost:8080/text
+    public static String charJson (@RequestBody String jsonText) {
         String text = jsonText.substring(jsonText.indexOf("text") + 8, jsonText.lastIndexOf("\""));
 
         //Подсчёт символов:
@@ -133,8 +135,8 @@ public class homeWork {
     // 1. Принять JSON с массивом "numbers"
     // 2. Вычислить сумму всех элементов массива
     // 3. Вернуть JSON с ключом "sum"
-
-    public static String sum(String jsonSum){
+    @PostMapping("/sum") //http://localhost:8080/sum
+    public static String sum(@RequestBody String jsonSum){
         String str = jsonSum.substring(jsonSum.indexOf("[") + 1, jsonSum.indexOf("]"));
         String arr[] = str.split(",");
 
@@ -149,8 +151,8 @@ public class homeWork {
     // 1. Принять JSON с массивами "numbers" и "conditions" (boolean)
     // 2. Просуммировать только те элементы "numbers", где "conditions" равно true
     // 3. Вернуть JSON с ключом "sum"
-
-    public static String sumif(String jsonSum_2){
+    @PostMapping("/sumif") //http://localhost:8080/sumif
+    public static String sumif(@RequestBody String jsonSum_2){
         String numbersStr = jsonSum_2.substring(jsonSum_2.indexOf("numbers") + 10, jsonSum_2.indexOf("]", jsonSum_2.indexOf("numbers")) + 1);
         numbersStr = numbersStr.substring(1, numbersStr.length() - 1);
         String[] numStr = numbersStr.split(",");
